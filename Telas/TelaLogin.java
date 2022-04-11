@@ -1,7 +1,7 @@
 package Telas;
 
-import Data.UsuarioDao;
-import Data.TextPrompt;
+import Dao.UsuarioDao;
+import Commun.TextPrompt;
 import Produto.Login;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -117,10 +117,10 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         Login login = new Login();
-        if (txtUsuario.getText().equals("")){
+        if (!txtUsuario.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Usuario não pode está vazio");
             return;
-        } else if (pswSenha.getText().equals("")){
+        } else if (!pswSenha.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Senha não pode está vazio");
             return;
         } else{
@@ -132,7 +132,7 @@ public class TelaLogin extends javax.swing.JFrame {
         if (status){
             status = dao.verificar(login);
             if (status){
-                TelaMenu menu = new TelaMenu();
+                TelaMenu menu = new TelaMenu(login);
                 menu.setVisible(true);
                 dispose();
             } else{

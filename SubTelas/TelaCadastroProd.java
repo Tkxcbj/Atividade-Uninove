@@ -1,6 +1,6 @@
 package SubTelas;
 
-import Data.ProdutoDao;
+import Dao.ProdutoDao;
 import Produto.Produto;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;

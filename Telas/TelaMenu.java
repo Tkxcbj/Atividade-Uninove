@@ -2,6 +2,7 @@
 package Telas;
 
 import Produto.Login;
+import SubTelas.TelaAlterarProd;
 import SubTelas.TelaCadastroProd;
 
 /**
@@ -13,8 +14,13 @@ public class TelaMenu extends javax.swing.JFrame {
     boolean fechar = false;
     Login login = new Login();
     
-    public TelaMenu() {
+    public TelaMenu(){
         initComponents();
+    }
+    
+    public TelaMenu(Login login) {
+        initComponents();
+        lblConUser.setText(login.getUsuario());
         nvAcesso(login.getCargo());
     }
 
@@ -45,8 +51,7 @@ public class TelaMenu extends javax.swing.JFrame {
         menu2 = new java.awt.Menu();
         lblConUser = new javax.swing.JLabel();
         lblConUserText = new javax.swing.JLabel();
-        g = new javax.swing.JDesktopPane();
-        jlpDesktop = new javax.swing.JLayeredPane();
+        imgFundo = new javax.swing.JLabel();
         barMenu = new javax.swing.JMenuBar();
         mnuProd = new javax.swing.JMenu();
         itmCadProd = new javax.swing.JMenuItem();
@@ -58,8 +63,7 @@ public class TelaMenu extends javax.swing.JFrame {
         imtAltFunc = new javax.swing.JMenuItem();
         itmExclFunc = new javax.swing.JMenuItem();
         itmRelaFunc = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        itmSair = new javax.swing.JMenuItem();
+        mnulogout = new javax.swing.JMenu();
 
         jMenu4.setText("File");
         jMenuBar2.add(jMenu4);
@@ -95,19 +99,20 @@ public class TelaMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
+
+        lblConUser.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblConUser);
         lblConUser.setBounds(530, 380, 60, 20);
         lblConUser.setText(login.getUsuario());
 
+        lblConUserText.setBackground(new java.awt.Color(255, 255, 255));
         lblConUserText.setText("Usuario:");
         getContentPane().add(lblConUserText);
         lblConUserText.setBounds(470, 380, 50, 20);
 
-        g.add(jlpDesktop);
-        jlpDesktop.setBounds(0, 0, 610, 430);
-
-        getContentPane().add(g);
-        g.setBounds(-1, 0, 620, 440);
+        imgFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/BackgroundMenu.jpg"))); // NOI18N
+        getContentPane().add(imgFundo);
+        imgFundo.setBounds(0, 0, 670, 490);
 
         mnuProd.setMnemonic('p');
         mnuProd.setText("Produtos");
@@ -157,40 +162,37 @@ public class TelaMenu extends javax.swing.JFrame {
 
         barMenu.add(mnuFunc);
 
-        jMenu1.setText("Usuario");
-
-        itmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        itmSair.setText("Sair");
-        itmSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmSairActionPerformed(evt);
+        mnulogout.setText("logout");
+        mnulogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnulogoutMouseClicked(evt);
             }
         });
-        jMenu1.add(itmSair);
-
-        barMenu.add(jMenu1);
+        barMenu.add(mnulogout);
 
         setJMenuBar(barMenu);
 
-        setSize(new java.awt.Dimension(628, 466));
+        setSize(new java.awt.Dimension(682, 541));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSairActionPerformed
-        TelaLogin login = new TelaLogin();
-        login.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_itmSairActionPerformed
-
     private void itmCadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCadProdActionPerformed
-        TelaCadastroProd prod = new TelaCadastroProd();
-        jlpDesktop.add(prod);
-        prod.setVisible(true);
+        TelaCadastroProd cadProd = new TelaCadastroProd();
+        imgFundo.add(cadProd);
+        cadProd.setVisible(true);
     }//GEN-LAST:event_itmCadProdActionPerformed
 
     private void itmAltprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAltprodActionPerformed
-        // TODO add your handling code here:
+        TelaAlterarProd altProd = new TelaAlterarProd();
+        imgFundo.add(altProd);
+        altProd.setVisible(true);
     }//GEN-LAST:event_itmAltprodActionPerformed
+
+    private void mnulogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnulogoutMouseClicked
+        TelaLogin login = new TelaLogin();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_mnulogoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -238,7 +240,7 @@ public class TelaMenu extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barMenu;
-    private javax.swing.JDesktopPane g;
+    private javax.swing.JLabel imgFundo;
     private javax.swing.JMenuItem imtAltFunc;
     private javax.swing.JMenuItem itmAltprod;
     private javax.swing.JMenuItem itmCadFunc;
@@ -247,10 +249,8 @@ public class TelaMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmExclProd;
     private javax.swing.JMenuItem itmRelaFunc;
     private javax.swing.JMenuItem itmRelaProd;
-    private javax.swing.JMenuItem itmSair;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -262,7 +262,6 @@ public class TelaMenu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JLayeredPane jlpDesktop;
     private javax.swing.JLabel lblConUser;
     private javax.swing.JLabel lblConUserText;
     private java.awt.Menu menu1;
@@ -270,5 +269,6 @@ public class TelaMenu extends javax.swing.JFrame {
     private java.awt.MenuBar menuBar1;
     private javax.swing.JMenu mnuFunc;
     private javax.swing.JMenu mnuProd;
+    private javax.swing.JMenu mnulogout;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,8 +2,8 @@
 package Telas;
 
 import Produto.Login;
-import Data.UsuarioDao;
-import Data.UsuarioDao;
+import Dao.UsuarioDao;
+import Dao.UsuarioDao;
 import javax.swing.JOptionPane;
 
 
@@ -95,8 +95,12 @@ public class TelaCadastrar extends javax.swing.JFrame {
             if(status){
                 salvar = dao.salvar(login);
                 if(salvar == 1){
-                    JOptionPane.showMessageDialog(null, "Usuario Cadastrado com sucesso");
-                    limpar();
+                    int resp = JOptionPane.showConfirmDialog(null, "Cadastrado feio com sucesso, dejesa cadastrar mais um?", "Sucesso", JOptionPane.YES_NO_OPTION);
+                    if(resp == JOptionPane.YES_NO_OPTION){
+                        limpar();
+                    }else{
+                        dispose();
+                    }
                 } else if(salvar == 1062){
                     JOptionPane.showMessageDialog(null, "O usuário já foi cadastrado");
                 } else{

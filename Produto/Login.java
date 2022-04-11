@@ -1,19 +1,19 @@
 package Produto;
 
 public class Login {
-    private static String usuario;
+    private  String usuario;
     private String senha;
-    private static String cargo;
+    private String cargo;
 
     public Login() {
     }
 
-    public static String getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public static void setUsuario(String usuario) {
-        Login.usuario = usuario;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getSenha() {
@@ -24,12 +24,12 @@ public class Login {
         this.senha = senha;
     }
 
-    public static String getCargo() {
+    public String getCargo() {
         return cargo;
     }
 
-    public static void setCargo(String cargo) {
-        Login.cargo = cargo;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
     
     
