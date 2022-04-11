@@ -1,3 +1,6 @@
 # Atividade-Uninove
-em geral é uma atividade da uninove
+Isso em geral é um teste para treinar programação, e aprender
+
+
 Falta o conector java 
+
