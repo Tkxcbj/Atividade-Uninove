@@ -42,11 +42,25 @@ public class ProdutoDao {
         }
     }
     
+    public int editar(Produto produto){
+        try{
+            pst = conn.prepareStatement("UPDATE produto SET nome=?, categoria=?, preco=? WHERE codigo=?;");
+            pst.setString(1, produto.getNome());
+            pst.setString(2, produto.getCategoria());
+            pst.setDouble(3, produto.getPreco());
+            pst.setInt(4, produto.getCod());
+            int resultado = pst.executeUpdate();
+            return resultado;
+        }catch(SQLException ex){
+            return ex.getErrorCode();
+        }
+    }
+    
     public Produto buscar(int valor){
         Produto jtProd = new Produto();         
          try {
-             pst = conn.prepareStatement("SELECT * FROM produto");
-             //pst.setInt(1, valor);
+             pst = conn.prepareStatement("SELECT * FROM produto WHERE codigo=?;");
+             pst.setInt(1, valor);
              rs = pst.executeQuery();            
              if(rs.next());
                     jtProd.setCod(rs.getInt("codigo"));
@@ -57,7 +71,24 @@ public class ProdutoDao {
          } catch (SQLException ex) {
              return null;
          } 
-      
+    }
+    
+    public ArrayList<Produto> buscar(String nome){
+        ArrayList lista = new ArrayList<Produto>();
+        try{
+            pst = conn.prepareStatement("SELECT * FROM produto WHERE nome=?;");
+            pst.setString(1, nome);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                lista.add(rs.getInt("codigo"));
+                lista.add(rs.getString("nome"));
+                lista.add(rs.getString("categoria"));
+                lista.add(rs.getDouble("preco"));
+            }
+            return lista;
+        }catch(SQLException ex){
+            return null;
+        }
     }
     
     public ArrayList<Produto> selecionarTudo(){

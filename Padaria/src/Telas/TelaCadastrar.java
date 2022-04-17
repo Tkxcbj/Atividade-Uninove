@@ -1,15 +1,15 @@
 
 package Telas;
 
-import Produto.Login;
-import Dao.UsuarioDao;
-import Dao.UsuarioDao;
+import Produto.Pendentes;
+import Dao.PendentesDao;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 
 public class TelaCadastrar extends javax.swing.JFrame {
 
-    UsuarioDao dao = new UsuarioDao();
+    PendentesDao dao = new PendentesDao();
     
     public TelaCadastrar() {
         initComponents();
@@ -28,7 +28,7 @@ public class TelaCadastrar extends javax.swing.JFrame {
         txtSenha = new javax.swing.JTextField();
         txtSenhaII = new javax.swing.JTextField();
         cbxCargo = new javax.swing.JComboBox<>();
-        btnSalvar = new javax.swing.JButton();
+        btnRequisitar = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -58,57 +58,65 @@ public class TelaCadastrar extends javax.swing.JFrame {
         txtUsuario.setBounds(120, 40, 250, 40);
         getContentPane().add(txtSenha);
         txtSenha.setBounds(120, 90, 250, 40);
+
+        txtSenhaII.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaIIKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtSenhaII);
         txtSenhaII.setBounds(120, 140, 250, 40);
 
         cbxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Gerente", "Vendedor", "Caixa" }));
+        cbxCargo.setEnabled(false);
         getContentPane().add(cbxCargo);
         cbxCargo.setBounds(120, 190, 250, 40);
 
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnRequisitar.setText("Requisitar");
+        btnRequisitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+                btnRequisitarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalvar);
-        btnSalvar.setBounds(20, 260, 90, 40);
+        getContentPane().add(btnRequisitar);
+        btnRequisitar.setBounds(20, 260, 90, 40);
 
         setSize(new java.awt.Dimension(423, 359));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void btnRequisitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequisitarActionPerformed
         boolean status;
         int salvar;
-        Login login = new Login();
+        Pendentes login = new Pendentes();
+        
         login.setUsuario(txtUsuario.getText());
         login.setSenha(txtSenha.getText());
-        login.setCargo(cbxCargo.getSelectedItem().toString());
+        login.setCargo("Selecione");
         if(!login.getSenha().equals(txtSenhaII.getText())){
             JOptionPane.showMessageDialog(null, "As senhas devem ser iguais", "Erro", JOptionPane.INFORMATION_MESSAGE);
-        } else{
-        if (cbxCargo.getSelectedItem().toString().equalsIgnoreCase("selecione")){
-            JOptionPane.showMessageDialog(null, "O cargo não pode ser 'selecione'");
+            return;
         }
-            status = dao.conectar();
-            if(status){
-                salvar = dao.salvar(login);
-                if(salvar == 1){
-                    int resp = JOptionPane.showConfirmDialog(null, "Cadastrado feio com sucesso, dejesa cadastrar mais um?", "Sucesso", JOptionPane.YES_NO_OPTION);
-                    if(resp == JOptionPane.YES_NO_OPTION){
-                        limpar();
-                    }else{
-                        dispose();
-                    }
-                } else if(salvar == 1062){
-                    JOptionPane.showMessageDialog(null, "O usuário já foi cadastrado");
-                } else{
-                    JOptionPane.showMessageDialog(null, "Não foi possivel cadastra esse usuario!", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
+        status = dao.conectar();
+        if(status){
+            salvar = dao.salvar(login);
+            if(salvar == 1){
+                JOptionPane.showMessageDialog(null, "Requisição feita com sucesso, espere pela aprovação do gerente");
+                dispose();
+            } else if(salvar == 1062){
+                JOptionPane.showMessageDialog(null, "O usuario já foi cadastrado, espere pela aprovação do gerente");
+            } else{
+                JOptionPane.showMessageDialog(null, "Não foi possivel cadastra esse usuario!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnSalvarActionPerformed
+        dao.desconectar();       
+    }//GEN-LAST:event_btnRequisitarActionPerformed
+
+    private void txtSenhaIIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaIIKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnRequisitar.doClick();
+        }
+    }//GEN-LAST:event_txtSenhaIIKeyPressed
 
     public static void telaCad(String args[]) {
         /* Set the Nimbus look and feel */
@@ -152,7 +160,7 @@ public class TelaCadastrar extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnRequisitar;
     private javax.swing.JComboBox<String> cbxCargo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCargo;

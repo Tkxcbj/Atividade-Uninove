@@ -55,4 +55,12 @@ public class UsuarioDao {
             return ex.getErrorCode();
         }
     }
+
+    public void desconectar(){
+        try{
+            pstm.close();
+            conn.close();
+        }catch(SQLException ex){
+        }
+    }
 }

@@ -2,9 +2,8 @@
 package Telas;
 
 import Dao.ProdutoDao;
-import SubTelas.ProdTelas.TelaCadastroProd;
-import SubTelas.ProdTelas.TelaAlterarProd;
-import SubTelas.ProdTelas.TelaRelatorioProd;
+import SubTelas.Prod.*;
+import SubTelas.Func.*;
 import Produto.Login;
 
 /**
@@ -26,7 +25,7 @@ public class TelaMenu extends javax.swing.JFrame {
         lblConUser.setText(login.getUsuario());
         nvAcesso(login.getCargo());
     }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +63,7 @@ public class TelaMenu extends javax.swing.JFrame {
         mnuFunc = new javax.swing.JMenu();
         itmCadFunc = new javax.swing.JMenuItem();
         imtAltFunc = new javax.swing.JMenuItem();
-        itmExclFunc = new javax.swing.JMenuItem();
+        itmAproFunc = new javax.swing.JMenuItem();
         itmRelaFunc = new javax.swing.JMenuItem();
         mnulogout = new javax.swing.JMenu();
 
@@ -167,8 +166,13 @@ public class TelaMenu extends javax.swing.JFrame {
         imtAltFunc.setText("Alterar");
         mnuFunc.add(imtAltFunc);
 
-        itmExclFunc.setText("Excluir");
-        mnuFunc.add(itmExclFunc);
+        itmAproFunc.setText("Aprovar");
+        itmAproFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAproFuncActionPerformed(evt);
+            }
+        });
+        mnuFunc.add(itmAproFunc);
 
         itmRelaFunc.setText("Relatorio");
         mnuFunc.add(itmRelaFunc);
@@ -218,6 +222,12 @@ public class TelaMenu extends javax.swing.JFrame {
         itmRelaProd.doClick();
     }//GEN-LAST:event_itmExclProdActionPerformed
 
+    private void itmAproFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAproFuncActionPerformed
+        TelaAproFunc aprovacao = new TelaAproFunc();
+        imgFundo.add(aprovacao);
+        aprovacao.setVisible(true);
+    }//GEN-LAST:event_itmAproFuncActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -252,7 +262,7 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         });
     }
-
+    
     
     private void nvAcesso(String cargo){
         if(cargo.equalsIgnoreCase("caixa") | cargo.equalsIgnoreCase("balconista")){
@@ -267,9 +277,9 @@ public class TelaMenu extends javax.swing.JFrame {
     private javax.swing.JLabel imgFundo;
     private javax.swing.JMenuItem imtAltFunc;
     private javax.swing.JMenuItem itmAltprod;
+    private javax.swing.JMenuItem itmAproFunc;
     private javax.swing.JMenuItem itmCadFunc;
     private javax.swing.JMenuItem itmCadProd;
-    private javax.swing.JMenuItem itmExclFunc;
     private javax.swing.JMenuItem itmExclProd;
     private javax.swing.JMenuItem itmRelaFunc;
     private javax.swing.JMenuItem itmRelaProd;
