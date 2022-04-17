@@ -164,10 +164,13 @@
                 <Property name="text" type="java.lang.String" value="Alterar"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itmExclFunc">
+            <MenuItem class="javax.swing.JMenuItem" name="itmAproFunc">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir"/>
+                <Property name="text" type="java.lang.String" value="Aprovar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmAproFuncActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmRelaFunc">
               <Properties>
