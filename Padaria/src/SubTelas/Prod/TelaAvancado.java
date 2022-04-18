@@ -18,6 +18,12 @@ public class TelaAvancado extends javax.swing.JFrame {
         initComponents();
         btnEditar.setVisible(false);
     }
+    
+    public TelaAvancado(int cod){
+        initComponents();
+        btnEditar.setVisible(false);
+        mostrar(cod);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,6 +50,10 @@ public class TelaAvancado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(432, 302));
+        setMinimumSize(new java.awt.Dimension(432, 302));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         lblCod.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -249,7 +259,12 @@ public class TelaAvancado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    public void limpar(){
+    private void mostrar(int cod){
+        txtCod.setText(String.valueOf(cod)); 
+        btnConsultar.doClick();
+    }
+    
+    private void limpar(){
         txtCod.setText("");
         txtNome.setText("");
         txtCategoria.setText("");

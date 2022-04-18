@@ -114,7 +114,7 @@ public class TelaMenu extends javax.swing.JFrame {
 
         imgFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/BackgroundMenu.jpg"))); // NOI18N
         getContentPane().add(imgFundo);
-        imgFundo.setBounds(0, 0, 670, 490);
+        imgFundo.setBounds(0, 0, 660, 480);
 
         mnuProd.setMnemonic('p');
         mnuProd.setText("Produtos");
@@ -164,6 +164,11 @@ public class TelaMenu extends javax.swing.JFrame {
         mnuFunc.add(itmCadFunc);
 
         imtAltFunc.setText("Alterar");
+        imtAltFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imtAltFuncActionPerformed(evt);
+            }
+        });
         mnuFunc.add(imtAltFunc);
 
         itmAproFunc.setText("Aprovar");
@@ -227,6 +232,12 @@ public class TelaMenu extends javax.swing.JFrame {
         imgFundo.add(aprovacao);
         aprovacao.setVisible(true);
     }//GEN-LAST:event_itmAproFuncActionPerformed
+
+    private void imtAltFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imtAltFuncActionPerformed
+        TelaAlterarFunc alterar = new TelaAlterarFunc();
+        imgFundo.add(alterar);
+        alterar.setVisible(true);
+    }//GEN-LAST:event_imtAltFuncActionPerformed
     
     /**
      * @param args the command line arguments

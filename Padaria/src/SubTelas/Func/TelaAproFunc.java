@@ -251,6 +251,7 @@ public class TelaAproFunc extends javax.swing.JInternalFrame {
                 
                 if(resp == 1){
                     JOptionPane.showMessageDialog(null, "Usuario Recusado com sucesso");
+                    atualizar();
                 } else{
                     JOptionPane.showMessageDialog(null, "Não foi possivel recusar esse usuario");
                 }

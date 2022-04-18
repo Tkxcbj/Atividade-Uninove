@@ -1,9 +1,9 @@
 
-package SubTelas.Prod;
+package SubTelas.Func;
 
 import Commun.TextPrompt;
-import Dao.ProdutoDao;
-import Produto.Produto;
+import Dao.FuncionarioDao;
+import Produto.Funcionario;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -12,39 +12,37 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author cleyt
  */
-public class TelaAlterarProd extends javax.swing.JInternalFrame {
+public class TelaAlterarFunc extends javax.swing.JInternalFrame {
     
-    public TelaAlterarProd() {
+    public TelaAlterarFunc() {
         initComponents();
         prencherTabela();
         TextPrompt tx = new TextPrompt("Pesquisar", txtPesquisar);
     }
     
-   /* public void atualizarTabela(){
-        ProdutoDao dao = new ProdutoDao();
-        dao.conectar();
-        ArrayList<Produto> produtos = dao.buscar();
-        prencherTabela(produtos);
-        
-    }*/
-    
+    public TelaAlterarFunc(int atl){
+        initComponents();       
+        TextPrompt tx = new TextPrompt("Pesquisar", txtPesquisar);
+        btnPesquisar.doClick();
+        repaint();
+        System.err.println("as");
+    }
+ 
     private void prencherTabela() {
         //Prenchendno a tabela assim que inicia
-        ProdutoDao dao = new ProdutoDao();
-        ArrayList<Produto> prod;
-        DefaultTableModel tableModel = (DefaultTableModel) jtProd.getModel();
+        FuncionarioDao dao = new FuncionarioDao();
+        ArrayList<Funcionario> func;
+        DefaultTableModel tableModel = (DefaultTableModel) jtFunc.getModel();
         int valor = 0;
 
         boolean status = dao.conectar();
         if(status){
-            prod = dao.selecionarTudo();  
+            func = dao.selecionarTodos();  
             while(true){
                 try{
                     tableModel.addRow(new Object[] {
-                        prod.get(valor++),
-                        prod.get(valor++),
-                        prod.get(valor++),
-                        prod.get(valor++)
+                        func.get(valor++),
+                        func.get(valor++)
                         });
 
                 }catch(IndexOutOfBoundsException ex){
@@ -67,7 +65,7 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtProd = new javax.swing.JTable();
+        jtFunc = new javax.swing.JTable();
         txtPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -77,38 +75,35 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
         setClosable(true);
         getContentPane().setLayout(null);
 
-        jtProd.setModel(new javax.swing.table.DefaultTableModel(
+        jtFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cod", "Produto", "Categoria", "Valor"
+                "Nome", "Cargo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jtProd.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jtProd.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtFunc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jtFunc.setAutoscrolls(false);
+        jtFunc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtProdMouseClicked(evt);
+                jtFuncMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtProd);
-        if (jtProd.getColumnModel().getColumnCount() > 0) {
-            jtProd.getColumnModel().getColumn(0).setResizable(false);
-            jtProd.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jtProd.getColumnModel().getColumn(1).setResizable(false);
-            jtProd.getColumnModel().getColumn(1).setPreferredWidth(280);
-            jtProd.getColumnModel().getColumn(2).setResizable(false);
-            jtProd.getColumnModel().getColumn(2).setPreferredWidth(170);
-            jtProd.getColumnModel().getColumn(3).setResizable(false);
-            jtProd.getColumnModel().getColumn(3).setPreferredWidth(117);
+        jScrollPane1.setViewportView(jtFunc);
+        if (jtFunc.getColumnModel().getColumnCount() > 0) {
+            jtFunc.getColumnModel().getColumn(0).setResizable(false);
+            jtFunc.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jtFunc.getColumnModel().getColumn(1).setResizable(false);
+            jtFunc.getColumnModel().getColumn(1).setPreferredWidth(280);
         }
 
         getContentPane().add(jScrollPane1);
@@ -159,7 +154,7 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        DefaultTableModel tableModel = (DefaultTableModel) jtProd.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) jtFunc.getModel();
         int l = 0;
         
         while(l < tableModel.getRowCount()){
@@ -169,9 +164,9 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        ProdutoDao dao = new ProdutoDao();
-        ArrayList<Produto> lista;
-        DefaultTableModel tableModel = (DefaultTableModel) jtProd.getModel();
+        FuncionarioDao dao = new FuncionarioDao();
+        ArrayList<Funcionario> lista;
+        DefaultTableModel tableModel = (DefaultTableModel) jtFunc.getModel();
         
         if(txtPesquisar.getText().equalsIgnoreCase("")){
             btnAtualizar.doClick();
@@ -188,9 +183,7 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
                     try{
                         tableModel.addRow(new Object[] {
                             lista.get(pos++),
-                            lista.get(pos++),
-                            lista.get(pos++),
-                            lista.get(pos++),
+                            lista.get(pos++)
                         });
                     }catch(IndexOutOfBoundsException ex){
                         break;
@@ -200,24 +193,23 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnAvancadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancadoActionPerformed
-        TelaAvancado avacado = new TelaAvancado();
-        avacado.setVisible(true);
-    }//GEN-LAST:event_btnAvancadoActionPerformed
-
     private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             btnPesquisar.doClick();
         }
     }//GEN-LAST:event_txtPesquisarKeyPressed
 
-    private void jtProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProdMouseClicked
+    private void btnAvancadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancadoActionPerformed
+        TelaAvancadoFunc avancado = new TelaAvancadoFunc();
+        avancado.setVisible(true);
+    }//GEN-LAST:event_btnAvancadoActionPerformed
+
+    private void jtFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFuncMouseClicked
         if(evt.getClickCount() == 2){
-            DefaultTableModel tableModel = (DefaultTableModel) jtProd.getModel();
-            TelaAvancado avancado = new TelaAvancado(Integer.parseInt(jtProd.getValueAt(jtProd.getSelectedRow(), 0).toString()));
+            TelaAvancadoFunc avancado = new TelaAvancadoFunc(jtFunc.getValueAt(jtFunc.getSelectedRow(), 0).toString());
             avancado.setVisible(true);
         }
-    }//GEN-LAST:event_jtProdMouseClicked
+    }//GEN-LAST:event_jtFuncMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -226,7 +218,7 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jtProd;
+    private javax.swing.JTable jtFunc;
     private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,9 +16,10 @@ public class UsuarioDao {
     public boolean conectar(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/padaria", "root", "2270");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/padaria", "root", "");
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
+            System.err.println(ex);
             return false;
         }
     }
