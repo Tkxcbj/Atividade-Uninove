@@ -17,6 +17,12 @@ public class TelaRelatorioProd extends javax.swing.JInternalFrame {
         initComponents();
         btnExcluir.setEnabled(false);
     }
+    
+    public TelaRelatorioProd(String cargo){
+        initComponents();
+        btnExcluir.setEnabled(false);
+        nvAcesso(cargo);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -213,6 +219,13 @@ public class TelaRelatorioProd extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtCodKeyPressed
 
+    private void nvAcesso(String cargo){
+        if(cargo.equalsIgnoreCase("balconista") | cargo.equalsIgnoreCase("caixa")){
+            btnSalvar.setVisible(false);
+            btnExcluir.setVisible(false);
+        }
+    }
+    
     public void limpar(){
         txtCod.setText("");
         txtNome.setText("");
