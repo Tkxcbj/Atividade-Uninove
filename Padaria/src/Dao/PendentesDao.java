@@ -18,7 +18,7 @@ public class PendentesDao {
     public boolean conectar(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/padaria", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/padaria", "root", "2270");
             return true;
         }catch(SQLException | ClassNotFoundException ex){
             return false;

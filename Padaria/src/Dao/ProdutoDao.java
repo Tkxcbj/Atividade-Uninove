@@ -19,7 +19,7 @@ public class ProdutoDao {
     public boolean conectar(){
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/padaria", "root", "");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/padaria", "root", "2270");
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
             return false;
@@ -78,6 +78,33 @@ public class ProdutoDao {
         try{
             pst = conn.prepareStatement("SELECT * FROM produto WHERE nome=?;");
             pst.setString(1, nome);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                lista.add(rs.getInt("codigo"));
+                lista.add(rs.getString("nome"));
+                lista.add(rs.getString("categoria"));
+                lista.add(rs.getDouble("preco"));
+            }
+            return lista;
+        }catch(SQLException ex){
+            return null;
+        }
+    }
+    
+    public ArrayList<Produto> buscarAvancada(String parametro, String valor){
+        ArrayList lista = new ArrayList<Produto>();
+        try{
+            
+            if(parametro.equalsIgnoreCase("Geral")){
+                pst = conn.prepareStatement("SELECT * FROM produto;");
+            }else if(parametro.equalsIgnoreCase("Categoria")){
+                pst = conn.prepareStatement("SELECT * FROM produto WHERE categoria=?;");
+                pst.setString(1, valor);
+            }else if(parametro.equalsIgnoreCase("Nome")){
+                pst = conn.prepareStatement("SELECT * FROM produto WHERE nome=?;");
+                pst.setString(1, valor);
+            }
+            
             rs = pst.executeQuery();
             while(rs.next()){
                 lista.add(rs.getInt("codigo"));

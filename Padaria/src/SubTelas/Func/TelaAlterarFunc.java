@@ -64,6 +64,7 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpTabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtFunc = new javax.swing.JTable();
         txtPesquisar = new javax.swing.JTextField();
@@ -74,6 +75,8 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
 
         setClosable(true);
         getContentPane().setLayout(null);
+
+        jpTabela.setLayout(null);
 
         jtFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,7 +109,7 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
             jtFunc.getColumnModel().getColumn(1).setPreferredWidth(280);
         }
 
-        getContentPane().add(jScrollPane1);
+        jpTabela.add(jScrollPane1);
         jScrollPane1.setBounds(0, 76, 623, 355);
 
         txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -114,7 +117,7 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
                 txtPesquisarKeyPressed(evt);
             }
         });
-        getContentPane().add(txtPesquisar);
+        jpTabela.add(txtPesquisar);
         txtPesquisar.setBounds(12, 13, 432, 40);
 
         btnPesquisar.setText("Pesquisar");
@@ -123,9 +126,9 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
                 btnPesquisarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPesquisar);
+        jpTabela.add(btnPesquisar);
         btnPesquisar.setBounds(451, 13, 90, 40);
-        getContentPane().add(jSeparator1);
+        jpTabela.add(jSeparator1);
         jSeparator1.setBounds(0, 62, 620, 10);
 
         btnAtualizar.setText("Atualizar");
@@ -136,7 +139,7 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
                 btnAtualizarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAtualizar);
+        jpTabela.add(btnAtualizar);
         btnAtualizar.setBounds(550, 40, 70, 20);
 
         btnAvancado.setText("Avançado");
@@ -147,8 +150,11 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
                 btnAvancadoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAvancado);
+        jpTabela.add(btnAvancado);
         btnAvancado.setBounds(550, 10, 70, 20);
+
+        getContentPane().add(jpTabela);
+        jpTabela.setBounds(0, 0, 630, 420);
 
         setBounds(0, 0, 639, 461);
     }// </editor-fold>//GEN-END:initComponents
@@ -202,22 +208,28 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
     private void btnAvancadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancadoActionPerformed
         TelaAvancadoFunc avancado = new TelaAvancadoFunc();
         avancado.setVisible(true);
+        
     }//GEN-LAST:event_btnAvancadoActionPerformed
 
     private void jtFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFuncMouseClicked
         if(evt.getClickCount() == 2){
-            TelaAvancadoFunc avancado = new TelaAvancadoFunc(jtFunc.getValueAt(jtFunc.getSelectedRow(), 0).toString());
+            TelaAvancadoFunc avancado = new TelaAvancadoFunc(jtFunc.getValueAt(jtFunc.getSelectedRow(), 0).toString(), btnPesquisar);
             avancado.setVisible(true);
         }
     }//GEN-LAST:event_jtFuncMouseClicked
 
+    public void atl(){
+        btnPesquisar.doClick();
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnAvancado;
-    private javax.swing.JButton btnPesquisar;
+    protected javax.swing.JButton btnPesquisar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jpTabela;
     private javax.swing.JTable jtFunc;
     private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables

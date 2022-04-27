@@ -6,22 +6,24 @@ package SubTelas.Func;
 
 import Dao.FuncionarioDao;
 import Produto.Funcionario;
+import SubTelas.Prod.TelaAvancado;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class TelaAvancadoFunc extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaAvancadoFunc
-     */
+    JButton btn;
+    
     public TelaAvancadoFunc() {
         initComponents();
         btnExcluir.setEnabled(false);
     }
 
-    public TelaAvancadoFunc(String nome){
+    public TelaAvancadoFunc(String nome, JButton btn){
         initComponents();
         mostra(nome);
+        this.btn = btn;
     }
     
     
@@ -99,7 +101,7 @@ public class TelaAvancadoFunc extends javax.swing.JFrame {
         getContentPane().add(cbxCargo);
         cbxCargo.setBounds(90, 110, 240, 40);
 
-        setSize(new java.awt.Dimension(412, 339));
+        setSize(new java.awt.Dimension(412, 320));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,7 +118,7 @@ public class TelaAvancadoFunc extends javax.swing.JFrame {
                 resp  = dao.excluir(txtUsuario.getText());
                 if(resp == 1){
                     JOptionPane.showMessageDialog(null, "Usuario excluido com sucesso");
-                    TelaAlterarFunc alt = new TelaAlterarFunc(0);
+                    this.btn.doClick();
                 }else{
                     JOptionPane.showMessageDialog(null, "Não foi possivel excluir o usuario", "Erro", JOptionPane.ERROR_MESSAGE);
                 }

@@ -114,7 +114,7 @@ public class TelaMenu extends javax.swing.JFrame {
 
         imgFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/BackgroundMenu.jpg"))); // NOI18N
         getContentPane().add(imgFundo);
-        imgFundo.setBounds(0, 0, 660, 480);
+        imgFundo.setBounds(0, 0, 690, 530);
 
         mnuProd.setMnemonic('p');
         mnuProd.setText("Produtos");
@@ -194,7 +194,7 @@ public class TelaMenu extends javax.swing.JFrame {
 
         setJMenuBar(barMenu);
 
-        setSize(new java.awt.Dimension(682, 541));
+        setSize(new java.awt.Dimension(707, 556));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
