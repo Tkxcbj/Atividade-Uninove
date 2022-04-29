@@ -76,6 +76,30 @@ public class FuncionarioDao {
         }
     }
 
+    public int editar(Funcionario funcionario, String nome){
+        try{
+            pst = conn.prepareStatement("UPDATE newuser SET usuario=?, cargo=? WHERE usuario=?;");
+            pst.setString(1, funcionario.getNome());
+            pst.setString(2, funcionario.getCargo());
+            pst.setString(3, nome);
+            return pst.executeUpdate();
+        }catch(SQLException ex){
+            System.err.println(ex);
+            return ex.getErrorCode();
+        }
+    }
+    
+    public int salvarSenha(String senha, String nome){
+        try{
+            pst = conn.prepareStatement("UPDATE newuser SET senha=? WHERE usuario=?");
+            pst.setString(1, senha);
+            pst.setString(2, nome);
+            return pst.executeUpdate();
+        }catch(SQLException ex){
+            return ex.getErrorCode();
+        }
+    }
+    
     public int excluir(String nome){
         try{
             pst = conn.prepareStatement("DELETE FROM newuser WHERE usuario=?");

@@ -5,6 +5,7 @@ import Dao.ProdutoDao;
 import SubTelas.Prod.*;
 import SubTelas.Func.*;
 import Produto.Login;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +23,7 @@ public class TelaMenu extends javax.swing.JFrame {
     public TelaMenu(Login login) {
         initComponents();
         ProdutoDao dao = new ProdutoDao();
-        lblConUser.setText(login.getUsuario());
+        this.login = login;
         nvAcesso(login.getCargo());
     }
  
@@ -51,21 +52,21 @@ public class TelaMenu extends javax.swing.JFrame {
         menuBar1 = new java.awt.MenuBar();
         menu1 = new java.awt.Menu();
         menu2 = new java.awt.Menu();
-        lblConUser = new javax.swing.JLabel();
-        lblConUserText = new javax.swing.JLabel();
         imgFundo = new javax.swing.JLabel();
         barMenu = new javax.swing.JMenuBar();
+        mnuIniciar = new javax.swing.JMenu();
         mnuProd = new javax.swing.JMenu();
         itmCadProd = new javax.swing.JMenuItem();
         itmAltprod = new javax.swing.JMenuItem();
-        itmExclProd = new javax.swing.JMenuItem();
         itmRelaProd = new javax.swing.JMenuItem();
         mnuFunc = new javax.swing.JMenu();
         itmCadFunc = new javax.swing.JMenuItem();
         imtAltFunc = new javax.swing.JMenuItem();
         itmAproFunc = new javax.swing.JMenuItem();
         itmRelaFunc = new javax.swing.JMenuItem();
-        mnulogout = new javax.swing.JMenu();
+        itmUsuario = new javax.swing.JMenu();
+        itmMudarSenha = new javax.swing.JMenuItem();
+        itmSair = new javax.swing.JMenuItem();
 
         jMenu4.setText("File");
         jMenuBar2.add(jMenu4);
@@ -100,21 +101,20 @@ public class TelaMenu extends javax.swing.JFrame {
         menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Padaria Manuel");
         getContentPane().setLayout(null);
-
-        lblConUser.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblConUser);
-        lblConUser.setBounds(530, 380, 60, 20);
-        lblConUser.setText(login.getUsuario());
-
-        lblConUserText.setBackground(new java.awt.Color(255, 255, 255));
-        lblConUserText.setText("Usuario:");
-        getContentPane().add(lblConUserText);
-        lblConUserText.setBounds(470, 380, 50, 20);
 
         imgFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/BackgroundMenu.jpg"))); // NOI18N
         getContentPane().add(imgFundo);
         imgFundo.setBounds(0, 0, 690, 530);
+
+        mnuIniciar.setText("Iniciar");
+        mnuIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuIniciarMouseClicked(evt);
+            }
+        });
+        barMenu.add(mnuIniciar);
 
         mnuProd.setMnemonic('p');
         mnuProd.setText("Produtos");
@@ -129,22 +129,13 @@ public class TelaMenu extends javax.swing.JFrame {
         mnuProd.add(itmCadProd);
 
         itmAltprod.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        itmAltprod.setText("Alterar");
+        itmAltprod.setText("Alterar e Excluir");
         itmAltprod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmAltprodActionPerformed(evt);
             }
         });
         mnuProd.add(itmAltprod);
-
-        itmExclProd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        itmExclProd.setText("Excluir");
-        itmExclProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmExclProdActionPerformed(evt);
-            }
-        });
-        mnuProd.add(itmExclProd);
 
         itmRelaProd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itmRelaProd.setText("Relatório");
@@ -161,9 +152,14 @@ public class TelaMenu extends javax.swing.JFrame {
         mnuFunc.setText("Funcionarios");
 
         itmCadFunc.setText("Cadastrar");
+        itmCadFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmCadFuncActionPerformed(evt);
+            }
+        });
         mnuFunc.add(itmCadFunc);
 
-        imtAltFunc.setText("Alterar");
+        imtAltFunc.setText("Alterar e Excluir");
         imtAltFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imtAltFuncActionPerformed(evt);
@@ -184,17 +180,29 @@ public class TelaMenu extends javax.swing.JFrame {
 
         barMenu.add(mnuFunc);
 
-        mnulogout.setText("logout");
-        mnulogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnulogoutMouseClicked(evt);
+        itmUsuario.setText("Usuario");
+
+        itmMudarSenha.setText("Mudar Senha");
+        itmMudarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmMudarSenhaActionPerformed(evt);
             }
         });
-        barMenu.add(mnulogout);
+        itmUsuario.add(itmMudarSenha);
+
+        itmSair.setText("Sair");
+        itmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmSairActionPerformed(evt);
+            }
+        });
+        itmUsuario.add(itmSair);
+
+        barMenu.add(itmUsuario);
 
         setJMenuBar(barMenu);
 
-        setSize(new java.awt.Dimension(707, 556));
+        setSize(new java.awt.Dimension(714, 594));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -210,22 +218,12 @@ public class TelaMenu extends javax.swing.JFrame {
         altProd.setVisible(true);
     }//GEN-LAST:event_itmAltprodActionPerformed
 
-    private void mnulogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnulogoutMouseClicked
-        TelaLogin login = new TelaLogin();
-        login.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_mnulogoutMouseClicked
-
     private void itmRelaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRelaProdActionPerformed
         TelaRelatorioProd relaProd = new TelaRelatorioProd();
         imgFundo.add(relaProd);
         relaProd.setVisible(true);
         
     }//GEN-LAST:event_itmRelaProdActionPerformed
-
-    private void itmExclProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExclProdActionPerformed
-        itmRelaProd.doClick();
-    }//GEN-LAST:event_itmExclProdActionPerformed
 
     private void itmAproFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAproFuncActionPerformed
         TelaAproFunc aprovacao = new TelaAproFunc();
@@ -238,6 +236,30 @@ public class TelaMenu extends javax.swing.JFrame {
         imgFundo.add(alterar);
         alterar.setVisible(true);
     }//GEN-LAST:event_imtAltFuncActionPerformed
+
+    private void itmCadFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCadFuncActionPerformed
+        TelaCadFunc cadFunc = new TelaCadFunc();
+        imgFundo.add(cadFunc);
+        cadFunc.setVisible(true);
+    }//GEN-LAST:event_itmCadFuncActionPerformed
+
+    private void itmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSairActionPerformed
+        TelaLogin login = new TelaLogin();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_itmSairActionPerformed
+
+    private void itmMudarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmMudarSenhaActionPerformed
+        imgFundo.removeAll();
+        imgFundo.updateUI();
+        TelaMudarSenha mudarSenha = new TelaMudarSenha(login.getUsuario(), login.getSenha());
+        imgFundo.add(mudarSenha);
+        mudarSenha.setVisible(true);
+    }//GEN-LAST:event_itmMudarSenhaActionPerformed
+
+    private void mnuIniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuIniciarMouseClicked
+        JOptionPane.showMessageDialog(null, "Em construção", "Alerta", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_mnuIniciarMouseClicked
     
     /**
      * @param args the command line arguments
@@ -279,7 +301,6 @@ public class TelaMenu extends javax.swing.JFrame {
         if(cargo.equalsIgnoreCase("caixa") | cargo.equalsIgnoreCase("balconista")){
             mnuFunc.setEnabled(false);
             itmCadProd.setVisible(false);
-            itmExclProd.setVisible(false);
             itmAltprod.setVisible(false);
         }
     }
@@ -291,9 +312,11 @@ public class TelaMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmAproFunc;
     private javax.swing.JMenuItem itmCadFunc;
     private javax.swing.JMenuItem itmCadProd;
-    private javax.swing.JMenuItem itmExclProd;
+    private javax.swing.JMenuItem itmMudarSenha;
     private javax.swing.JMenuItem itmRelaFunc;
     private javax.swing.JMenuItem itmRelaProd;
+    private javax.swing.JMenuItem itmSair;
+    private javax.swing.JMenu itmUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu2;
@@ -307,13 +330,11 @@ public class TelaMenu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JLabel lblConUser;
-    private javax.swing.JLabel lblConUserText;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;
     private javax.swing.JMenu mnuFunc;
+    private javax.swing.JMenu mnuIniciar;
     private javax.swing.JMenu mnuProd;
-    private javax.swing.JMenu mnulogout;
     // End of variables declaration//GEN-END:variables
 }

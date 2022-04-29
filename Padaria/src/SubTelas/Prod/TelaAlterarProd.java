@@ -6,6 +6,7 @@ import Dao.ProdutoDao;
 import Produto.Produto;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -201,7 +202,7 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnAvancadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancadoActionPerformed
-        TelaAvancado avacado = new TelaAvancado();
+        TelaAvancado avacado = new TelaAvancado(btnAtualizar);
         avacado.setVisible(true);
     }//GEN-LAST:event_btnAvancadoActionPerformed
 
@@ -214,7 +215,7 @@ public class TelaAlterarProd extends javax.swing.JInternalFrame {
     private void jtProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProdMouseClicked
         if(evt.getClickCount() == 2){
             DefaultTableModel tableModel = (DefaultTableModel) jtProd.getModel();
-            TelaAvancado avancado = new TelaAvancado(Integer.parseInt(jtProd.getValueAt(jtProd.getSelectedRow(), 0).toString()));
+            TelaAvancado avancado = new TelaAvancado(btnAtualizar, Integer.parseInt(jtProd.getValueAt(jtProd.getSelectedRow(), 0).toString()));
             avancado.setVisible(true);
         }
     }//GEN-LAST:event_jtProdMouseClicked

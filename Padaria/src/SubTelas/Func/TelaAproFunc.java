@@ -24,6 +24,9 @@ public class TelaAproFunc extends javax.swing.JInternalFrame {
     public TelaAproFunc() {
         initComponents();
         listar();
+        if(jtPendentes.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Não ha nenhuma requisiçao de usuario");
+        }
         jpAprov.setVisible(false);
         jpTabela.setVisible(true);
     }
@@ -52,7 +55,6 @@ public class TelaAproFunc extends javax.swing.JInternalFrame {
         pswSenha = new javax.swing.JPasswordField();
 
         setClosable(true);
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpTabela.setLayout(null);

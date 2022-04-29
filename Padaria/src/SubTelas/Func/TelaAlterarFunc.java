@@ -218,9 +218,6 @@ public class TelaAlterarFunc extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtFuncMouseClicked
 
-    public void atl(){
-        btnPesquisar.doClick();
-    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

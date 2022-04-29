@@ -3,6 +3,7 @@ package SubTelas.Prod;
 import Dao.ProdutoDao;
 import Produto.Produto;
 import java.awt.event.KeyEvent;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,18 +12,20 @@ import javax.swing.JOptionPane;
  */
 public class TelaAvancado extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaAvançado
-     */
-    public TelaAvancado() {
+    JButton atualizar;
+    
+    public TelaAvancado(JButton anterior) {
         initComponents();
         btnEditar.setVisible(false);
+        this.atualizar = anterior;
     }
     
-    public TelaAvancado(int cod){
+    public TelaAvancado(JButton anterior, int cod){
         initComponents();
-        btnEditar.setVisible(false);
         mostrar(cod);
+        btnConsultar.setEnabled(false);
+        txtCod.setEnabled(false);    
+        this.atualizar = anterior;
     }
 
     /**
@@ -187,24 +190,34 @@ public class TelaAvancado extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         ProdutoDao dao = new ProdutoDao();
         Produto produto = new Produto();
+        int resp;
         
         produto.setCod(Integer.parseInt(txtCod.getText()));
+        System.out.println(txtCod.getText());
         produto.setNome(txtNome.getText());
         produto.setCategoria(txtCategoria.getText());
         produto.setPreco(Double.parseDouble(txtPreco.getText()));
         
-        boolean status = dao.conectar();
-        if(status){
-            int resp = dao.salvar(produto);
+        if(dao.conectar()){
+            resp = dao.salvar(produto);
             if(resp == 1){
+                toBack();
                 resp = JOptionPane.showConfirmDialog(null, "Produto salvo com sucesso deseja salvar mais um?", "Sucesso", JOptionPane.YES_NO_OPTION);
                 if(resp == JOptionPane.YES_NO_OPTION){
                     limpar();
                     txtCod.requestFocus();
+                    toFront();
                 }else{
                     dispose();
                 }
+            }else{
+                toBack();
+                JOptionPane.showMessageDialog(null, "Não foi possivel Salvar o produto");
+                toFront();
             }
+            atualizar.doClick();
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possivel conectar ao banco de dados");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -219,11 +232,16 @@ public class TelaAvancado extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Produto Excluido com sucesso");
                 btnExcluir.setEnabled(false);
                 limpar();
+                btnConsultar.setEnabled(true);
+                txtCod.setEnabled(true);
+                btnEditar.setVisible(false);
+                btnSalvar.setVisible(true);
                 toFront();
             }else{
                 JOptionPane.showMessageDialog(null, "Não foi possivel excluir o produto");
             }
             dao.desconectar();
+            atualizar.doClick();
         }else{
             JOptionPane.showMessageDialog(null, "Não foi possivel conectar com o banco de dados");
         }
@@ -254,6 +272,7 @@ public class TelaAvancado extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Não foi possivel salvar as alteração");
             }
             dao.desconectar();
+            atualizar.doClick();
         }else{
             JOptionPane.showMessageDialog(null, "Não Foi possivel conectar ao banco de dados");
         }
@@ -271,41 +290,7 @@ public class TelaAvancado extends javax.swing.JFrame {
         txtPreco.setText("");
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void subAvancado(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAvancado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAvancado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAvancado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAvancado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaAvancado().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;

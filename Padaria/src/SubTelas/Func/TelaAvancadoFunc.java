@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 public class TelaAvancadoFunc extends javax.swing.JFrame {
 
     JButton btn;
+    String nome;
     
     public TelaAvancadoFunc() {
         initComponents();
@@ -24,6 +25,7 @@ public class TelaAvancadoFunc extends javax.swing.JFrame {
         initComponents();
         mostra(nome);
         this.btn = btn;
+        this.nome = nome;
     }
     
     
@@ -60,6 +62,11 @@ public class TelaAvancadoFunc extends javax.swing.JFrame {
         txtUsuario.setBounds(90, 10, 240, 40);
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnSalvar);
         btnSalvar.setBounds(240, 170, 80, 40);
 
@@ -92,6 +99,11 @@ public class TelaAvancadoFunc extends javax.swing.JFrame {
         btnExcluir.setBounds(150, 170, 80, 40);
 
         btnRedefinirSenha.setText("Redefinir Senha");
+        btnRedefinirSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedefinirSenhaActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRedefinirSenha);
         btnRedefinirSenha.setBounds(120, 220, 140, 40);
         getContentPane().add(pswSenha);
@@ -119,6 +131,7 @@ public class TelaAvancadoFunc extends javax.swing.JFrame {
                 if(resp == 1){
                     JOptionPane.showMessageDialog(null, "Usuario excluido com sucesso");
                     this.btn.doClick();
+                    dispose();
                 }else{
                     JOptionPane.showMessageDialog(null, "Não foi possivel excluir o usuario", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
@@ -129,6 +142,51 @@ public class TelaAvancadoFunc extends javax.swing.JFrame {
         }else{
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnRedefinirSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedefinirSenhaActionPerformed
+        FuncionarioDao dao = new FuncionarioDao();
+        int resposta;
+        
+        if(dao.conectar()){
+            resposta = dao.salvarSenha(txtUsuario.getText(), txtUsuario.getText());
+            if(resposta == 1){
+                JOptionPane.showMessageDialog(null, "Senha redefinida com Sucesso");
+            }else{
+                JOptionPane.showMessageDialog(null, "Não foi possivel redefinir a senha");
+            }
+            dao.desconectar();
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possivel conectar ao banco de dados");
+        }
+    }//GEN-LAST:event_btnRedefinirSenhaActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        FuncionarioDao dao = new FuncionarioDao();
+        Funcionario funcionario = new Funcionario();
+        int resp;
+        
+        funcionario.setNome(txtUsuario.getText());
+        if(cbxCargo.getSelectedItem().toString().equalsIgnoreCase("Selecione")){
+            JOptionPane.showMessageDialog(null, "O cargo não pode ser 'Selecione'");
+            return;
+        }
+        funcionario.setCargo(cbxCargo.getSelectedItem().toString());
+        
+        if(dao.conectar()){
+            resp = dao.editar(funcionario, nome);
+            if(resp == 1){
+                JOptionPane.showMessageDialog(null, "Usuario atualizado com Sucesso");
+                btn.doClick();
+            }else if(resp == 1062){
+                JOptionPane.showMessageDialog(null, "O nome de usuario já está em uso");
+            }else{
+                JOptionPane.showMessageDialog(null, "Não foi possivel salvar as alteraçães");
+            }
+            dao.desconectar();
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possivel conectar ao bando de dados");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void mostra(String nome){
         FuncionarioDao dao = new FuncionarioDao();

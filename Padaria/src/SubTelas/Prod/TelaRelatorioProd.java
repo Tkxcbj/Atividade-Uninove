@@ -31,6 +31,7 @@ public class TelaRelatorioProd extends javax.swing.JInternalFrame {
         txtPesquisar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
 
+        setClosable(true);
         getContentPane().setLayout(null);
 
         tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -102,9 +103,9 @@ public class TelaRelatorioProd extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnBuscar);
-        btnBuscar.setBounds(370, 70, 170, 26);
+        btnBuscar.setBounds(370, 70, 170, 29);
 
-        setBounds(0, 0, 644, 491);
+        setBounds(15, 25, 644, 491);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -116,7 +117,6 @@ public class TelaRelatorioProd extends javax.swing.JInternalFrame {
             DefaultTableModel tableModel = (DefaultTableModel) tbProdutos.getModel();
             int pos = 0;
             valores = dao.buscarAvancada(cbxTipo.getSelectedItem().toString(), txtPesquisar.getText());
-            System.err.println(valores.isEmpty());
             if(valores.isEmpty()){
                 JOptionPane.showMessageDialog(null, txtPesquisar.getText() + ", Não foi encotrado");
                 return;

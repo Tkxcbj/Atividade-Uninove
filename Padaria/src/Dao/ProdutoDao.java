@@ -56,11 +56,11 @@ public class ProdutoDao {
         }
     }
     
-    public Produto buscar(int valor){
+    public Produto buscar(int codigo){
         Produto jtProd = new Produto();         
          try {
              pst = conn.prepareStatement("SELECT * FROM produto WHERE codigo=?;");
-             pst.setInt(1, valor);
+             pst.setInt(1, codigo);
              rs = pst.executeQuery();            
              if(rs.next());
                     jtProd.setCod(rs.getInt("codigo"));
